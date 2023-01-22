@@ -1,16 +1,14 @@
-import { ScrollView } from "react-native"
-import { getBottomSpace } from "react-native-iphone-x-helper";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native"
 import Profile from "./Profile"
 import Margin from "./Margin";
 
-const bottomSpace = getBottomSpace();
-
 export default (props) => {
-  console.log('getBottomSpace', bottomSpace, Platform.OS)
-
+  /**
+   * 2. if문으로 예외처리 (가독성)
+   */
+  if (!props.isOpened) return null;
   return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: bottomSpace }}>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {props.data.map((item, index) => (
         <View key={index}>
           <Profile
@@ -23,4 +21,22 @@ export default (props) => {
       ))}
     </ScrollView>
   )
+
+  /**
+   * 1. 삼항 연산자
+   */
+  //return props.isOpened ? (
+  //  <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: bottomSpace }}>
+  //    {props.data.map((item, index) => (
+  //      <View key={index}>
+  //        <Profile
+  //          uri={item.uri}
+  //          name={item.name} 
+  //          introduction={item.introduction}
+  //        />
+  //        <Margin height={13} />
+  //      </View>
+  //    ))}
+  //  </ScrollView>
+  //) : null;
 }
